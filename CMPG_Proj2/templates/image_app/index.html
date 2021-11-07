@@ -3,13 +3,35 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Image Application</title>
+    <title>Django Lvl 2 </title>
     <link rel="stylesheet" href="{% static "css/mystyle.css"%}"/>
   </head>
   <body>
-    <h1>Hi, This is a picture of django the movie</h1>
-    <img src="{% static 'images/download.jpeg' %}" alt="My image">
+    <h1> Hi welcome to Djanog level 2 </h1>
+    <h2>Here are your acces records:</h2>
 
+    <div class="djangtwo">
+      {% if acces_records %}
+      <table>
+        <thead>
+          <th>Site name</th>
+          <th>Date Accessed</th>
+        </thead>
+
+        {% for acc in acces_records %}
+        <tr>
+          <td>{{acc.name}}</td>
+          <td>{{acc.date}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+        <p>No Access records found</p>
+      {% endif %}
+
+
+
+    </div>
 
   </body>
 </html>
