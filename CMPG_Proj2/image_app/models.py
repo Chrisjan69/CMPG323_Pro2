@@ -1,26 +1,38 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class Topic(models.Model):
-    top_name = models.CharField(max_length = 264, unique = True)
+
+class UserProfileInfo(models.Model):
+
+    # Create relationship (don't inherit from User!)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+
+    def _str_(self):
+        # Built-in attribute of django.contrib.auth.models.User !
+        return self.user.username
+
+
+class Album(models.Model):
+    album_name = models.CharField(max_length = 200, unique = True)
+    user_name = models.ForeignKey(User,related_name ='u_album_name', on_delete = models.CASCADE)
+    date_created = models.DateField()
+
+    def __str__(self):
+        return str(self.album_name)
+
+class Image(models.Model):
+    title = models.CharField(max_length = 15, unique = True)
+    desc = models.CharField(max_length = 300, unique = True)
+    location = models.CharField(max_length = 30, unique = True)
+    album_name = models.ForeignKey(Album,related_name='image_in_album', on_delete = models.CASCADE)
+    image = models.ImageField(blank = True, null = True)
+    date_uploaded = models.DateField(blank = True, null = True)
+
+
 
 
     def __str__(self):
-        return self.top_name
-
-class Webpage(models.Model):
-    topic = models.ForeignKey(Topic,on_delete=models.CASCADE)
-    name = models.CharField(max_length = 264, unique = True)
-    urls = models.URLField(unique = True)
-
-    def __str__(self):
-        return self.name
-
-class AccessRecord(models.Model):
-    name = models.ForeignKey(Webpage,on_delete=models.CASCADE)
-    date = models.DateField()
-
-    def __str__(self):
-        return str(self.date)
+        return self.title
 
 
 # Create your models here.

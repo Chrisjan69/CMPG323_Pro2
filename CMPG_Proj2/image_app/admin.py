@@ -1,9 +1,8 @@
 from django.contrib import admin
 
 
-from image_app.models import AccessRecord,Topic,Webpage
+from image_app.models import Image,Album,UserProfileInfo
 # Register your models here.
-
-admin.site.register(AccessRecord)
-admin.site.register(Topic)
-admin.site.register(Webpage)
+admin.site.register(UserProfileInfo)
+admin.site.register(Image)
+admin.site.register(Album)
