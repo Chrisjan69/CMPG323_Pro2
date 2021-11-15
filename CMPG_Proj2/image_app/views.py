@@ -1,13 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from image_app.register import NewUserForm
 # Create your views here.
 
 def index(request):
+    return render(request,'image_app/index.html')
 
-    # webpages_list = AccessRecord.objects.order_by('date')
-    # date_dict = {'acces_records': webpages_list}
+def register(request):
+    form = NewUserForm
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            form.save(commit = True)
+            return index(request)
+        else:
+            print('ERROR, PLEASE CHECK ALL FIELDS')
+    return render(request, 'image_app/register.html',{'form':form})
 
-    return render(request) #image_app/index.html', context = date_dict)
+
 
 def test(request):
     my_dict =  {'insert_me':'Hello, now i am coming from image_app/index.html!!'}

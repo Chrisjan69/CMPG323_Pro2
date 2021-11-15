@@ -23,4 +23,6 @@ urlpatterns = [
     path('',views.index,name="index"),
     path('image_app/',include('image_app.urls')),
     path('admin/', admin.site.urls),
+    path('register/',include('image_app.urls')),
+
 ]

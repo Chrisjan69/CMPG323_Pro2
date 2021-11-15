@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 
+
 from image_app.models import Image,Album,UserProfileInfo
 # Register your models here.
 admin.site.register(UserProfileInfo)
