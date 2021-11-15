@@ -21,8 +21,7 @@ from image_app import views
 
 urlpatterns = [
     path('',views.index,name="index"),
-    path('image_app/',include('image_app.urls')),
     path('admin/', admin.site.urls),
-    path('register/',include('image_app.urls')),
+    path('users/',include('image_app.urls')),
 
 ]

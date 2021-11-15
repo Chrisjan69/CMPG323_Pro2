@@ -1,21 +1,22 @@
 from django.shortcuts import render
-from image_app.register import NewUserForm
+from image_app.forms import NewUserForm
 # Create your views here.
 
 def index(request):
     return render(request,'image_app/index.html')
 
-def register(request):
-    form = NewUserForm
-    if request.method == "POST":
+def users(request):
+    form = NewUserForm()
+
+    if request.method =='POST':
         form = NewUserForm(request.POST)
+
         if form.is_valid():
             form.save(commit = True)
             return index(request)
         else:
-            print('ERROR, PLEASE CHECK ALL FIELDS')
-    return render(request, 'image_app/register.html',{'form':form})
-
+            print('ERROR, FORM INVALID')
+    return render(request,'image_app/users.html',{'form':form})
 
 
 def test(request):
