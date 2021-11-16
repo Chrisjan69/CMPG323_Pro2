@@ -1,7 +1,11 @@
 from django import forms
 from image_app.models import User
+from django.contrib.auth.models import User
+
+
 
 class NewUserForm(forms.ModelForm):
-    class Meta():
+     password = forms.CharField(widget=forms.PasswordInput())
+     class Meta():
         model = User
-        fields = '__all__'
+        fields = ('username','email','password')
