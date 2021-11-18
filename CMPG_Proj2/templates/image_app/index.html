@@ -2,7 +2,15 @@
     <div class="container">
       <div class="jumbotron">
         <h1>Welcome to the home page</h1>
-        <h2>Go to /users to sign up for the site</h2>
+        <h2>Go to /users/reigter to create an account</h2>
+        <h2>Go to /users/login to login to your existing account</h2>
+
+          <a href="{% url 'image_app:user_login' %}"> Login</a>
+          <a href="{% url 'image _app:users '%}">Sign Up</a>
+
+
+
+
       </div>
     </div>
 {% endblock %}

@@ -2,23 +2,20 @@ from django.shortcuts import render
 from image_app.forms import NewUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest, HttpResponseForbidden, QueryDict, HttpResponseNotFound
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required #if viwe requires uers to be loged in
+
 # Create your views here.
 
 def index(request):
     return render(request,'image_app/index.html')
 
-# def users(request):
-#     form = NewUserForm()
-#
-#     if request.method =='POST':
-#         form = NewUserForm(request.POST)
-#
-#         if form.is_valid():
-#             form.save(commit = True)
-#             return index(request)
-#         else:
-#             print('ERROR, FORM INVALID')
-#     return render(request,'image_app/users.html',{'form':form})
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
+
+
 
 def users(request):
     registered = False
@@ -50,6 +47,31 @@ def users(request):
     return render(request,'image_app/users.html',
                 {'user_from':user_form,
                 'registered':registered})
+
+
+def user_login(request):
+    if request.method =='POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username = username, password = password) #authenticates User
+
+        if user:
+            if user.is_active:
+                login(request,user)
+                return HttpResponseRedirect(reverse('index'))
+
+            else:
+                return HttpResponse("Account Not Found, Please register an account")
+        else:
+            print("A person without an account tried loggin in")
+            print("Username: {} and Password {}".format(username,password))
+            return HttpResponse("Invalid login details supplied, Please check username and password or create an Account")
+    else:
+        return render(request, "image_app/login.html",{})
+
+
+
 
 
 def test(request):
