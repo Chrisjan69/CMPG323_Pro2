@@ -27,7 +27,7 @@
 
                 </li>
                 <li>
-                    <a data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Stats">Images<i class="fa fa-file-pdf-o"></i>
+                    <a data-placement="bottom" data-toggle="tooltip" href="{% url 'image_app:images' %}" data-original-title="Stats">Images<i class="fa fa-file-pdf-o"></i>
                     </a>
 
                 </li>
@@ -52,12 +52,12 @@
                     </ul>
                 </li>
             </ul>
-            <form>
+            <form method=POST action="{% url 'image_app:search_site' %}">
             <div class="form-group">
                     {% csrf_token %}
-                    <input type="search" class="form-control" placeholder="Search Albums" aria-label="Search" name="searched">
+                    <input type="search" class="form-control" placeholder="Search Albums shared with you" aria-label="Search" name="searched">
                 </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit"  class="btn btn-primary">Search</button>
             </form>
 
 

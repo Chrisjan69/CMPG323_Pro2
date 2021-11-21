@@ -1,0 +1,19 @@
+
+{% extends "image_app/base.html" %} {% block body_block %}
+{% load static %}
+
+
+<div class="container">
+  <div class="jumbotron">
+    <h3>Here are your Albums</h3>
+
+    {% for i in album_display %}
+    <img src="{{i.album.url}}" alt="Not found">
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+{% endblock%}

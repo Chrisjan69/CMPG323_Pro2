@@ -1,15 +1,58 @@
 from django.shortcuts import render
-from image_app.forms import NewUserForm
+from image_app.forms import NewUserForm,ImageForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest, HttpResponseForbidden, QueryDict, HttpResponseNotFound
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required #if viwe requires uers to be loged in
-from django.views.generic import View
+from django.views.generic import View, TemplateView, DetailView, ListView
+from image_app import models
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit  import CreateView,UpdateView,DeleteView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
 def index(request):
     return render(request,'image_app/index.html')
+
+def view_picture(request):
+    # c = models.UserImage.objects.order_by('-date_uploaded')
+    # imgform = ImageForm()
+    # return render (request,'image_app/Display_Images_detail.html', {'userImage' :c, 'imgform' :imgform})
+
+    c = dict()
+    c['userimage'] = models.UserImage.objects.all().order_by('-date_uploaded')
+    imgform = ImageForm()
+    return render(request,'image_app/Display_Images_detail.html',c)
+
+
+
+
+class ImageCreateView(LoginRequiredMixin,CreateView):
+    fields = ('title','desc','location','date_uploaded','pic','album_name')
+    model = models.UserImage
+    template_name = 'image_app/userimage_form.html'
+
+class ImageUpdateView(LoginRequiredMixin,UpdateView):
+    fields = ('title','desc','location','date_uploaded','album_name')
+    model = models.UserImage
+
+
+class ImageDeleteView(DeleteView):
+   model = models.UserImage
+   success_url=reverse_lazy('image_app:images')
+
+class AlbumDisplayView(LoginRequiredMixin,ListView):
+    model = models.Album
+    template_name = 'image_app/Display_Albums_detail.html'
+    context_object_name = 'album_display'
+
+
+# class ImageDisplayView(LoginRequiredMixin,ListView):
+#     model = models.Image
+#     template_name = 'image_app/Display_Images_detail.html'
+#     context_object_name = 'image_display'
+
 
 @login_required
 def user_logout(request):
@@ -21,11 +64,11 @@ def user_logout(request):
 def search_site(request):
     if request.method == "POST":
         searched = request.POST.get('searched')
-        Album_title = Album.objects.filter(Album_name__contains=searched)
-        User_name = User.objects.filter(user_contains)
-        return render(request, 'image_app/search_site.html', {'searched':searched, 'albums':album, 'username':username})
+        image_title = models.UserImage.objects.filter(title__contains=searched)
+        # username = models.User.objects.filter(user__contains = searched)
+        return render(request, 'image_app/image_searched.html', {'searched':searched, 'image_title':image_title,})
     else:
-        return render(request, 'image_app/search_site.html', {})
+        return render(request, 'image_app/image_searched.html', {})
 
 
 

@@ -1,0 +1,55 @@
+
+{% extends 'image_app/base.html' %} {% block body_block %} {% load static %} {% if searched %}
+<style>
+    .column {
+        float: left;
+        width: 50%;
+    }
+    /* Clear floats after the columns */
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<h1>Here are your results:</h1>
+<br>
+<div class="row">
+    <h3>Image Search Results:</h3>
+    {% for i in image_title %}
+    <p><b>Title: {{i.title}}</b></p>
+    <img src="{{ i.pic.url }}">
+    <p>Description: {{i.desc}}</p>
+    <p>Location: {{i.location}}</p>
+    <p>Date Uploaded: {{i.date_uploaded}}</p>
+    <p>Album Name: {{i.album_name}}</p>
+    <p>Owner of album: {{i.album_name.user_name}}</p>
+    {% endfor %}
+</div>
+
+<br> {% else %}
+<h2>You forgot to search for a site...</h2>
+<h3 style="margin-top: 0px;
+margin-bottom: 50px;
+margin-left: 50px;
+font-family: sans-serif;
+font-size: 3rem;
+letter-spacing: 0.15rem;
+text-transform: uppercase;
+color: whitesmoke;
+text-shadow: -4px 4px #ef3550,
+            -8px 8px #f48fb1,
+            -12px 12px #7e57c2,
+            -16px 16px #2196f3,
+            -20px 20px #26c6da,
+            -24px 24px #43a047,
+            -28px 28px #eeff41,
+            -32px 32px #f9a825,
+            -36px 36px #ff5722;">Dumbass</h3>
+
+
+{% endif %}
+
+<br>
+<br> {% endblock %}

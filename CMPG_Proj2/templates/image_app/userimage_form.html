@@ -1,0 +1,11 @@
+{% extends 'image_app/base.html' %} {% block body_block %}
+<h1>
+    {% if not form.instance.pk %} Upload Image {% else %} Edit {% endif %}
+</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{ form.as_p }} {{form.media}}
+    <input type="submit" class="btn btn-primary" value="Submit">
+
+</form>
+
+<br><br> {% endblock %}

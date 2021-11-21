@@ -20,6 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / 'templates'
 STATIC_DIR = BASE_DIR / 'static'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -139,6 +143,8 @@ STATICFILES_DIRS = [
 
 LOGIN_URL ='image_app,user_login'
 LOGOUT_URL = 'image_app,user_logout'
+
+
 
 
 # Default primary key field type
