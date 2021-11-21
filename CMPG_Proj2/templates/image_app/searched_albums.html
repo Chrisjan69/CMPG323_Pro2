@@ -1,0 +1,196 @@
+
+{% extends 'image_app/base.html' %} {% block body_block %} {% load static %} {% if searched %}
+<style>
+    .column {
+        float: left;
+        width: 50%;
+    }
+    /* Clear floats after the columns */
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<h1>Here are your results:</h1>
+<br>
+<div class="row">
+    <h3>Album Search Results:</h3>
+    {% for i in customers %}
+    <div class="column">
+        <div style="border: solid darkgrey; padding: 10px 10px 10px 10px; margin-bottom: 25px;  border-radius: 10px; width: 500px;" class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{i.customer_name}}</h5>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
+                            <th id="card_table" scope="col">Primary Contact</th>
+                            <th id="card_table" scope="col">Email</th>
+                            <th id="card_table" scope="col">Number</th>
+                            <th id="card_table" scope="col">Account Manager</th>
+                            <th id="card_table" scope="col">Reserved IP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td id="card_table">{{i.contact}}</td>
+                            <td id="card_table">{{i.contact_email}}</td>
+                            <td id="card_table">{{i.contact_number}}</td>
+                            <td id="card_table">{{i.am}}</td>
+                            <td id="card_table">{{i.reserved_ip}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="/ms_app/customers/{{i.id}}" class="btn btn-primary">SITES</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <h3>Site Search Results:</h3>
+    {% for i in sites %}
+    <div class="column">
+        <div style="border: solid darkgrey;border-radius: 10px; padding: 10px; width: 500px;" class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{i.site_name}}</h5>
+                <h3 style="text-align: right;font-size: 12px;"><strong>SUBNET:
+                                </strong>{{i.subnet_ip}}/{{i.subnet_subnet}}</h3>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
+                            <th id="card_table" scope="col">Contact Person</th>
+                            <th id="card_table" scope="col">Email</th>
+                            <th id="card_table" scope="col">Number</th>
+                            <th id="card_table" scope="col">Physical Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td id="card_table">{{i.site_contact_person}}</td>
+                            <td id="card_table">{{i.site_contact_email}}</td>
+                            <td id="card_table">{{i.site_contact_number}}</td>
+                            <td id="card_table">{{i.phyical_address}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
+                            <th id="card_table" scope="col">FW Name</th>
+                            <th id="card_table" scope="col">FQDN</th>
+                            <th id="card_table" scope="col">Public IP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td id="card_table">{{i.fw_name_prim|default_if_none:""}}</td>
+                            <td id="card_table"><a href="{{i.public_fqdn_prim}}" target="_blank">{{i.public_fqdn_prim|default_if_none:""}}</a></td>
+                            <td id="card_table">{{i.public_ip_prim|default_if_none:""}}</td>
+                            <tr>
+                                <th scope="row"></th>
+                                <td id="card_table">{{i.fw_name_sec|default_if_none:""}}</td>
+                                <td id="card_table"><a href="{{i.public_fqdn_sec}}" target="_blank">{{i.public_fqdn_sec|default_if_none:""}}</a></td>
+                                <td id="card_table">{{i.public_ip_sec|default_if_none:""}}</td>
+                                <td id="card_table"></td>
+                                <td id="card_table"></td>
+                            </tr>
+                    </tbody>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"></th>
+                                <th id="card_table" scope="col">Internal FQND</th>
+                                <th id="card_table" scope="col">Internal IP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row"></th>
+                                <td id="card_table"><a href="{{i.internal_fqdn_prim}}" target="_blank">
+                                                    {{i.internal_fqdn_prim|default_if_none:""}}
+                                            </td>
+                                            <td id="card_table">{{i.internal_ip|default_if_none:""}}</td>
+                                        </tr>
+                        </tbody>
+                </table> {% if i.core_switch_name %}
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
+                            <th id="card_table" scope="col">CSW Name</th>
+                            <th id="card_table" scope="col">Model</th>
+                            <th id="card_table" scope="col">Internal IP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td id="card_table">{{i.core_switch_name|default_if_none:""}}</td>
+                            <td id="card_table">{{i.core_switch_model|default_if_none:""}}</td>
+                            <td id="card_table">{{i.core_switch_intenal_ip|default_if_none:""}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %} {% if i.controller_name_prim %}
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
+                            <th id="card_table" scope="col">MC Name</th>
+                            <th id="card_table" scope="col">Model</th>
+                            <th id="card_table" scope="col">Internal IP</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td id="card_table">{{i.controller_name_prim|default_if_none:""}}</td>
+                            <td id="card_table">{{i.controller_model_prim|default_if_none:""}}</td>
+                            <td id="card_table">{{i.controller_intenal_ip_prim|default_if_none:""}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td id="card_table">{{i.controller_name_sec|default_if_none:""}}</td>
+                            <td id="card_table">{{i.controller_model_sec|default_if_none:""}}</td>
+                            <td id="card_table">{{i.controller_intenal_ip_sec|default_if_none:""}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endfor %}
+</div>
+
+<br> {% else %}
+<h2>You forgot to search for a site...</h2>
+<h3 style="margin-top: 0px;
+margin-bottom: 50px;
+margin-left: 50px;
+font-family: sans-serif;
+font-size: 3rem;
+letter-spacing: 0.15rem;
+text-transform: uppercase;
+color: whitesmoke;
+text-shadow: -4px 4px #ef3550,
+            -8px 8px #f48fb1,
+            -12px 12px #7e57c2,
+            -16px 16px #2196f3,
+            -20px 20px #26c6da,
+            -24px 24px #43a047,
+            -28px 28px #eeff41,
+            -32px 32px #f9a825,
+            -36px 36px #ff5722;">Dumbass</h3>
+
+
+{% endif %}
+
+<br>
+<br> {% endblock %}

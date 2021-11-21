@@ -1,12 +1,13 @@
 {% extends "image_app/base.html" %} {% block body_block %}
     <div class="container">
       <div class="jumbotron">
-        <h1>Welcome to the home page</h1>
-        <h2>Go to /users/reigter to create an account</h2>
-        <h2>Go to /users/login to login to your existing account</h2>
+        <h1>Welcome to the Image App</h1>
+        <h2>Click Sign up to create an account</h2>
+        <h2>Click on login to login to your existing account</h2>
 
-          <a href="{% url 'image_app:user_login' %}"> Login</a>
-          <a href="{% url 'image _app:users '%}">Sign Up</a>
+          <a href="{% url 'image_app:user_login'%}"> Login</a>
+          <a href="{% url 'image_app:users'%}">Sign Up</a>
+          <a href="{% url 'admin:index'%}"></a>
 
 
 

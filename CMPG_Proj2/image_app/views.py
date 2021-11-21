@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest, HttpResponseForbidden, QueryDict, HttpResponseNotFound
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required #if viwe requires uers to be loged in
+from django.views.generic import View
 
 # Create your views here.
 
@@ -14,6 +15,17 @@ def index(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+
+@login_required
+def search_site(request):
+    if request.method == "POST":
+        searched = request.POST.get('searched')
+        Album_title = Album.objects.filter(Album_name__contains=searched)
+        User_name = User.objects.filter(user_contains)
+        return render(request, 'image_app/search_site.html', {'searched':searched, 'albums':album, 'username':username})
+    else:
+        return render(request, 'image_app/search_site.html', {})
 
 
 
@@ -69,8 +81,6 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied, Please check username and password or create an Account")
     else:
         return render(request, "image_app/login.html",{})
-
-
 
 
 

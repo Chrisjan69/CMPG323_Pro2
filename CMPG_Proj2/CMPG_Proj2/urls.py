@@ -22,7 +22,8 @@ from image_app import views
 urlpatterns = [
     path('',views.index,name="index"),
     path('admin/', admin.site.urls),
-    path('users/',include('image_app.urls')),
+    path('image_app/',include('image_app.urls')),
+    # path('users/', include('django.contrib.auth.urls')), 
 
 
 
