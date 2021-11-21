@@ -42,7 +42,7 @@ class ImageUpdateView(LoginRequiredMixin,UpdateView):
 class ImageDeleteView(LoginRequiredMixin,DeleteView):
     model = models.UserImage
     success_url = reverse_lazy("image_app:images")
-     
+
 
 
 
@@ -71,7 +71,7 @@ def search_site(request):
         searched = request.POST.get('searched')
         image_title = models.UserImage.objects.filter(title__contains=searched)
         # username = models.User.objects.filter(user__contains = searched)
-        return render(request, 'image_app/image_searched.html', {'searched':searched, 'image_title':image_title,})
+        return render(request, 'image_app/image_searched.html', {'searched':searched, 'image_title':image_title})
     else:
         return render(request, 'image_app/image_searched.html', {})
 

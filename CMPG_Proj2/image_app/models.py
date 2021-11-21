@@ -53,7 +53,7 @@ def image_directory_path(instance, filename):
 class UserImage(models.Model):
 
     pic = models.ImageField(upload_to=image_directory_path, storage=image_storage)
-    title = models.CharField(max_length = 15, unique = True)
+    title = models.CharField(max_length = 200, unique = True)
     desc = models.CharField(max_length = 300, unique = True)
     location = models.CharField(max_length = 30, unique = False)
     album_name = models.ForeignKey(Album,related_name='image_in_album', on_delete = models.CASCADE)

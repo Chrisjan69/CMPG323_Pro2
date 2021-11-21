@@ -52,13 +52,15 @@
                     </ul>
                 </li>
             </ul>
+            {% if user.is_authenticated %}
             <form method=POST action="{% url 'image_app:search_site' %}">
             <div class="form-group">
                     {% csrf_token %}
                     <input type="search" class="form-control" placeholder="Search Albums shared with you" aria-label="Search" name="searched">
                 </div>
                 <button type="submit"  class="btn btn-primary">Search</button>
-            </form>
+            </form>]
+            {%endif%}
 
 
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->

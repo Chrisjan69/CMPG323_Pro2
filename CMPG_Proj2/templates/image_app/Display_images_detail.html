@@ -12,11 +12,13 @@
         <img src="{{i.pic.url}}" width="200" height="200">
         <p>Description: {{i.desc}}</p>
         <p>Location: {{i.location}}</p>
-        <p>Date Uploaded{{i.date_uploaded}}</p>
+        <p>Date Uploaded: {{i.date_uploaded}}</p>
         <p>Album Name: {{i.album_name}}</p>
         <p>Name of Album Owner: {{i.album_name.user_name}}</p>
+        {% if user.is_superuser %}
         <a class='btn btn-warning' href="{% url 'image_app:update' pk=i.pk %}">Edit</a>
         <a class='btn btn-warning' href="{% url 'image_app:delete' pk=i.pk %}">Delete</a>
+        {%endif%}
         <br>
         <br>
 {% endfor %}
