@@ -18,7 +18,7 @@ urlpatterns = [
     path('images/',views.view_picture, name = 'images'),
     path('upload/',views.ImageCreateView.as_view(), name = 'upload'),
     path('update/<pk>',views.ImageUpdateView.as_view(), name = 'update'),
-    path('delete/<pk>/',views.ImageDeleteView.as_view(),name='delete'),
+    path('delete/<pk>',views.ImageDeleteView.as_view(), name = 'delete'),
     path('search_site',views.search_site, name='search_site'),
 
 

@@ -9,6 +9,8 @@ from image_app import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit  import CreateView,UpdateView,DeleteView
 from django.urls import reverse_lazy
+from django.views import generic
+
 
 # Create your views here.
 
@@ -23,7 +25,7 @@ def view_picture(request):
     c = dict()
     c['userimage'] = models.UserImage.objects.all().order_by('-date_uploaded')
     imgform = ImageForm()
-    return render(request,'image_app/Display_Images_detail.html',c)
+    return render(request,'image_app/Display_images_detail.html',c)
 
 
 
@@ -37,10 +39,13 @@ class ImageUpdateView(LoginRequiredMixin,UpdateView):
     fields = ('title','desc','location','date_uploaded','album_name')
     model = models.UserImage
 
+class ImageDeleteView(LoginRequiredMixin,DeleteView):
+    model = models.UserImage
+    success_url = reverse_lazy("image_app:images")
+     
 
-class ImageDeleteView(DeleteView):
-   model = models.UserImage
-   success_url=reverse_lazy('image_app:images')
+
+
 
 class AlbumDisplayView(LoginRequiredMixin,ListView):
     model = models.Album

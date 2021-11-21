@@ -16,6 +16,7 @@
         <p>Album Name: {{i.album_name}}</p>
         <p>Name of Album Owner: {{i.album_name.user_name}}</p>
         <a class='btn btn-warning' href="{% url 'image_app:update' pk=i.pk %}">Edit</a>
+        <a class='btn btn-warning' href="{% url 'image_app:delete' pk=i.pk %}">Delete</a>
         <br>
         <br>
 {% endfor %}

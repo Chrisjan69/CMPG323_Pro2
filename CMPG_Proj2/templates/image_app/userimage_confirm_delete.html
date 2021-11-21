@@ -1,11 +1,11 @@
-{% extends "basic_app/basic_app_base.html" %}
+{% extends "image_app/base.html" %}
 {% block body_block %}
 
-<h1>Delete {{UserImage.title}}?</h1>
+<h1>Delete {{userimage.title}}?</h1>
 <form method='post'>
     {% csrf_token %}
     <input type="submit" class="btn btn-danger" value="Delete">
-    <a href="{% url 'image_app:images' pk=UserImage.pk %}">Cancel</a>
+    <a href="{% url 'image_app:' pk=userimage.pk %}">Cancel</a>
 </form>
 
 {% endblock %}
